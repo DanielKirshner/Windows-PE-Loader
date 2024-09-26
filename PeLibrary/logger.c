@@ -7,7 +7,7 @@
 #ifdef _DEBUG
 #define MAX_OUTPUT_BUFFER ((uint32_t)1024)
 
-void Logger__debug_log(const wchar_t* format, ...)
+void Logger__debug_log(const wchar_t* const format, ...)
 {
 	wchar_t message[MAX_OUTPUT_BUFFER];
 	va_list args;
