@@ -50,3 +50,10 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# Visual studio
+Debug
+Release
+*.user
+.vs
+.vscode
