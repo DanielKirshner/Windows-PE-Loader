@@ -57,3 +57,6 @@ Release
 *.user
 .vs
 .vscode
+*.vcxproj
+*.sln
+*.filters
