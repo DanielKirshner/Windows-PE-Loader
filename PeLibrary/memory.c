@@ -3,9 +3,9 @@
 #include "logger.h"
 
 bool Memory__allocate(
-	const uint32_t size,
-	void* const requested_base_address,
-	MemoryMap* const memory)
+	__in const uint32_t size,
+	__in void* const requested_base_address,
+	__out MemoryMap* const memory)
 {
 	void* allocated_ptr = NULL;
 
