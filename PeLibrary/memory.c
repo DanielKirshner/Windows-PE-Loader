@@ -11,13 +11,13 @@ bool Memory__allocate(
 
 	if (memory == NULL)
 	{
-		DEBUG_LOG(L"Bad MemoryMap parameter");
+		DEBUG_LOG(L"Invalid MemoryMap parameter given.");
 		return false;
 	}
 	
 	if (requested_base_address == NULL)
 	{
-		DEBUG_LOG(L"Bad requested_base_address parameter");
+		DEBUG_LOG(L"Invalid requested_base_address parameter given.");
 		return false;
 	}
 
@@ -38,5 +38,32 @@ bool Memory__allocate(
 
 	memory->start_pointer = allocated_ptr;
 	memory->size = size;
+	return true;
+}
+
+bool Memory__free(__in MemoryMap* const memory)
+{
+	if (memory == NULL)
+	{
+		DEBUG_LOG(L"Invalid MemoryMap parameter given.");
+		return false;
+	}
+
+	if (memory->start_pointer == NULL)
+	{
+		DEBUG_LOG(L"MemoryMap is not initialized");
+		return false;
+	}
+
+	static const SIZE_T RELEASE_ALL = 0;
+
+	if (!VirtualFree(memory->start_pointer, RELEASE_ALL, MEM_RELEASE))
+	{
+		DEBUG_LOG(L"VirtualFree() failed with windows error %u", GetLastError());
+		return false;
+	}
+
+	memory->size = 0;
+	memory->start_pointer = NULL;
 	return true;
 }
