@@ -32,7 +32,7 @@ bool Memory__allocate(
 
 	if (allocated_ptr == NULL)
 	{
-		DEBUG_LOG(L"Failed to allocate memory with windows error %u", GetLastError());
+		DEBUG_LOG(L"Failed to allocate memory with Windows error %u", GetLastError());
 		return false;
 	}
 
@@ -59,11 +59,100 @@ bool Memory__free(__in MemoryMap* const memory)
 
 	if (!VirtualFree(memory->start_pointer, RELEASE_ALL, MEM_RELEASE))
 	{
-		DEBUG_LOG(L"VirtualFree() failed with windows error %u", GetLastError());
+		DEBUG_LOG(L"VirtualFree() failed with Windows error %u", GetLastError());
 		return false;
 	}
 
 	memory->size = 0;
 	memory->start_pointer = NULL;
+	return true;
+}
+
+bool Memory__set_protection(
+	const MemoryMap* const memory,
+	const uint32_t rva_address,
+	const uint32_t size,
+	const DWORD protection)
+{
+	if (memory == NULL)
+	{
+		DEBUG_LOG(L"Invalid memory parameter given.");
+		return false;
+	}
+
+	if (memory->start_pointer == NULL)
+	{
+		DEBUG_LOG(L"MemoryMap given is not initialized");
+		return false;
+	}
+
+	DWORD __out old_protection = 0;
+	
+	if (!VirtualProtect(memory->start_pointer + rva_address, size, protection, &old_protection))
+	{
+		DEBUG_LOG(L"VirtualProtect() failed to set protection with Windows error %u", GetLastError());
+		return false;
+	}
+	return true;
+}
+
+bool Memory__copy(
+	const MemoryMap* const memory,
+	const uint32_t rva_address,
+	const uint8_t* const buffer,
+	const uint32_t buffer_size)
+{
+	const uint8_t* buffer_ptr = NULL;
+	uint8_t* memory_ptr = NULL;
+
+	if (memory == NULL || buffer == NULL)
+	{
+		DEBUG_LOG(L"Invalid memory or buffer parameter given.");
+		return false;
+	}
+
+	if (buffer_size > memory->size - rva_address)
+	{
+		DEBUG_LOG(L"The buffer given is too big.");
+		return false;
+	}
+
+	buffer_ptr = buffer;
+	memory_ptr = memory->start_pointer + rva_address;
+	__movsb(memory_ptr, buffer_ptr, buffer_size);
+	return true;
+}
+
+bool Memory__rva_to_absolute(
+	const MemoryMap* const memory,
+	const uint32_t rva_address,
+	uint8_t** const actual_address)
+{
+	if (memory == NULL)
+	{
+		DEBUG_LOG(L"Invalid memory parameter given.");
+		return false;
+	}
+
+	if (actual_address == NULL)
+	{
+		DEBUG_LOG(L"Invalid actual_address parameter given.");
+		return false;
+	}
+
+	if (memory->start_pointer == NULL)
+	{
+		DEBUG_LOG(L"Memory not initialized given.");
+		return false;
+	}
+
+	if (rva_address >= memory->size)
+	{
+		DEBUG_LOG("The RVA (relative virtual address) is out of range.");
+		return false;
+	}
+
+
+	*actual_address = memory->start_pointer + rva_address;
 	return true;
 }
