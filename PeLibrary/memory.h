@@ -42,3 +42,21 @@ bool Memory__allocate(
 		`true` if the memory is successfully freed, `false` on failure.
 */
 bool Memory__free(__in MemoryMap* const memory);
+
+
+bool Memory__set_protection(
+	__in const MemoryMap* const memory,
+	__in const uint32_t rva_address,
+	__in const uint32_t size,
+	__in const DWORD protection);
+
+bool Memory__copy(
+	__in const MemoryMap* const memory,
+	__in const uint32_t rva_address,
+	__in const uint8_t* const buffer,
+	__in const uint32_t buffer_size);
+
+bool Memory__rva_to_absolute(
+	__in const MemoryMap* const memory,
+	__in const uint32_t rva_address,
+	__out uint8_t** const actual_address);
