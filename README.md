@@ -1,2 +1,2 @@
 # Windows-PE-Loader
-Windows Portable Executable loader implementation as part of my OS internals research.
+Windows Portable Executable parser and loader implementation as part of my Windows OS internals research.
