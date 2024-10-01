@@ -22,5 +22,5 @@ bool Dll__get_function_by_name(
 
 bool Dll__get_function_by_ordinal(
 	const Dll* const dll,
-	const uint32_t ordinal,
+	const size_t ordinal,
 	FARPROC* const function);

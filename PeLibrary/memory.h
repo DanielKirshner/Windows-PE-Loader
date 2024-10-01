@@ -7,7 +7,7 @@
 typedef struct _MemoryMap
 {
 	uint8_t* start_pointer;
-	uint32_t size;
+	size_t size;
 } MemoryMap;
 
 /**
@@ -26,7 +26,7 @@ typedef struct _MemoryMap
 		On failure, appropriate errors are logged.
 */
 bool Memory__allocate(
-	__in const uint32_t size,
+	__in const size_t size,
 	__in void* const requested_base_address,
 	__out MemoryMap* const memory);
 
@@ -62,8 +62,8 @@ bool Memory__free(__in MemoryMap* const memory);
  */
 bool Memory__set_protection(
 	__in const MemoryMap* const memory,
-	__in const uint32_t rva_address,
-	__in const uint32_t size,
+	__in const size_t rva_address,
+	__in const size_t size,
 	__in const DWORD protection);
 
 /**
@@ -84,9 +84,9 @@ bool Memory__set_protection(
  */
 bool Memory__copy(
 	__in const MemoryMap* const memory,
-	__in const uint32_t rva_address,
+	__in const size_t rva_address,
 	__in const uint8_t* const buffer,
-	__in const uint32_t buffer_size);
+	__in const size_t buffer_size);
 
 /**
 @brief
@@ -104,5 +104,5 @@ bool Memory__copy(
  */
 bool Memory__rva_to_absolute(
 	__in const MemoryMap* const memory,
-	__in const uint32_t rva_address,
+	__in const size_t rva_address,
 	__out uint8_t** const actual_address);

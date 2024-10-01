@@ -92,7 +92,7 @@ bool Dll__get_function_by_name(const Dll* const dll, const char* const func_name
 	return true;
 }
 
-bool Dll__get_function_by_ordinal(const Dll* const dll, const uint32_t ordinal, FARPROC* const function)
+bool Dll__get_function_by_ordinal(const Dll* const dll, const size_t ordinal, FARPROC* const function)
 {
 	if (dll == NULL || function == NULL)
 	{

@@ -3,8 +3,8 @@
 #include <Windows.h>
 
 bool Utils__section_characteristics_to_protection_flag(
-	__in const uint32_t characteristics,
-	__out uint32_t* const protection)
+	__in const size_t characteristics,
+	__out size_t* const protection)
 {
 	*protection = 0x00;
 
