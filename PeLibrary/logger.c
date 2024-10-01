@@ -5,7 +5,7 @@
 #include <stdint.h>
 
 #ifdef _DEBUG
-#define MAX_OUTPUT_BUFFER ((uint32_t)1024)
+#define MAX_OUTPUT_BUFFER ((size_t)1024)
 
 void Logger__debug_log(const wchar_t* const format, ...)
 {

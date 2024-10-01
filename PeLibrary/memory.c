@@ -3,7 +3,7 @@
 #include "logger.h"
 
 bool Memory__allocate(
-	__in const uint32_t size,
+	__in const size_t size,
 	__in void* const requested_base_address,
 	__out MemoryMap* const memory)
 {
@@ -55,7 +55,7 @@ bool Memory__free(__in MemoryMap* const memory)
 		return false;
 	}
 
-	static const SIZE_T RELEASE_ALL = 0;
+	static const size_t RELEASE_ALL = 0;
 
 	if (!VirtualFree(memory->start_pointer, RELEASE_ALL, MEM_RELEASE))
 	{
@@ -70,8 +70,8 @@ bool Memory__free(__in MemoryMap* const memory)
 
 bool Memory__set_protection(
 	const MemoryMap* const memory,
-	const uint32_t rva_address,
-	const uint32_t size,
+	const size_t rva_address,
+	const size_t size,
 	const DWORD protection)
 {
 	if (memory == NULL)
@@ -98,9 +98,9 @@ bool Memory__set_protection(
 
 bool Memory__copy(
 	const MemoryMap* const memory,
-	const uint32_t rva_address,
+	const size_t rva_address,
 	const uint8_t* const buffer,
-	const uint32_t buffer_size)
+	const size_t buffer_size)
 {
 	const uint8_t* buffer_ptr = NULL;
 	uint8_t* memory_ptr = NULL;
@@ -125,7 +125,7 @@ bool Memory__copy(
 
 bool Memory__rva_to_absolute(
 	const MemoryMap* const memory,
-	const uint32_t rva_address,
+	const size_t rva_address,
 	uint8_t** const actual_address)
 {
 	if (memory == NULL)
