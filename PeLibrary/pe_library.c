@@ -55,6 +55,40 @@ static bool Library__validate_pe(
 	return true;
 }
 
+static bool Library__allocate_memory(LibraryModule* const module)
+{
+	uint8_t* const requested_begin_address = (uint8_t* const)module->nt_headers->OptionalHeader.ImageBase;
+
+	if (!Memory__allocate(
+		module->nt_headers->OptionalHeader.SizeOfImage,
+		requested_begin_address,
+		&module->memory))
+	{
+		DEBUG_LOG(L"Failed to allocate memory");
+		return false;
+	}
+	return true;
+}
+
+static bool Library__copy_section(
+	const uint8_t* const pe_buffer,
+	LibraryModule* const module,
+	const uint32_t current_raw_offset)
+{
+	const IMAGE_SECTION_HEADER* const section_header = (const IMAGE_SECTION_HEADER* const)(pe_buffer + current_raw_offset);
+
+	if (!Memory__copy(
+		&module->memory,
+		section_header->VirtualAddress,
+		pe_buffer + section_header->PointerToRawData,
+		min(section_header->SizeOfRawData, section_header->Misc.VirtualSize)))
+	{
+		TRACE(L"Failed to copy section data");
+		return false;
+	}
+	return true;
+}
+
 HMODULE __stdcall Library__load_library(
 	__in const uint8_t* const pe_buffer,
 	__in const size_t pe_buffer_size)
