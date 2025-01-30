@@ -2,7 +2,9 @@
 
 #include "logger.h"
 
-bool Dll__load(const char* const path, Dll* const dll)
+bool Dll__load(
+	__in const char* const path,
+	__out Dll* const dll)
 {
 	if (path == NULL)
 	{
@@ -24,7 +26,7 @@ bool Dll__load(const char* const path, Dll* const dll)
 	return true;
 }
 
-bool Dll__free(Dll* const dll)
+bool Dll__free(__in Dll* const dll)
 {
 	if (dll == NULL)
 	{
@@ -47,7 +49,9 @@ bool Dll__free(Dll* const dll)
 	return true;
 }
 
-bool Dll__from_handle(const char* const path, Dll* const dll)
+bool Dll__from_handle(
+	__in const char* const path,
+	__out Dll* const dll)
 {
 	if (path == NULL || dll == NULL)
 	{
@@ -68,7 +72,10 @@ bool Dll__from_handle(const char* const path, Dll* const dll)
 	return true;
 }
 
-bool Dll__get_function_by_name(const Dll* const dll, const char* const func_name, FARPROC* const function)
+bool Dll__get_function_by_name(
+	__in const Dll* const dll,
+	__in const char* const func_name,
+	__out FARPROC* const function)
 {
 	if (dll == NULL || func_name == NULL || function == NULL)
 	{
@@ -92,7 +99,10 @@ bool Dll__get_function_by_name(const Dll* const dll, const char* const func_name
 	return true;
 }
 
-bool Dll__get_function_by_ordinal(const Dll* const dll, const size_t ordinal, FARPROC* const function)
+bool Dll__get_function_by_ordinal(
+	__in const Dll* const dll,
+	__in const size_t ordinal,
+	__out FARPROC* const function)
 {
 	if (dll == NULL || function == NULL)
 	{
