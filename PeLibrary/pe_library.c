@@ -83,7 +83,7 @@ static bool Library__copy_section(
 		pe_buffer + section_header->PointerToRawData,
 		min(section_header->SizeOfRawData, section_header->Misc.VirtualSize)))
 	{
-		TRACE(L"Failed to copy section data");
+		DEBUG_LOG(L"Failed to copy section data");
 		return false;
 	}
 	return true;
