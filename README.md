@@ -2,7 +2,7 @@
 Windows Portable Executable parser and loader library implementation as part of my Windows OS internals research.
 
 ## C++ Usage
-```
+```c
 extern "C"
 {
 #include "pe_library.h"
@@ -20,3 +20,6 @@ int32_t APIENTRY wWinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPWSTR, _In_ 
         Library__FreeLibrary(module);
 }
 ```
+
+## 📜 License
+This project is licensed under the MIT License.

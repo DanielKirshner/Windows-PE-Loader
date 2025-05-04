@@ -1,0 +1,21 @@
+name: Build Pe Library with Visual Studio
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup MSBuild path
+        uses: microsoft/setup-msbuild@v1.1
+
+      - name: Build solution
+        run: msbuild PeLibrary.sln /p:Configuration=Release
