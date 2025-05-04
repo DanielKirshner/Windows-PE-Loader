@@ -18,4 +18,5 @@ jobs:
         uses: microsoft/setup-msbuild@v1.1
 
       - name: Build solution
-        run: msbuild PeLibrary.sln /p:Configuration=Release
+        run: msbuild PeLibrary/PeLibrary.vcxproj /p:Configuration=Release
+
