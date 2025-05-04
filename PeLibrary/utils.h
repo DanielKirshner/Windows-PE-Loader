@@ -1,9 +1,17 @@
 #pragma once
 
+#include "logger.h"
+
 #include <stdbool.h>
 #include <stdint.h>
 
 #define HAS_FLAG(num, flag) (((num) & (flag)) == (flag))
+
+#define RVA_TO_ABSOLUTE(memory, rva, output) \
+	if (!Memory__rva_to_absolute(memory, (rva), &(output))) { \
+		DEBUG_LOG(L"Failed to get address from rva"); \
+			return false; \
+	} \
 
 /**
 @brief
