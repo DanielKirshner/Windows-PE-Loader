@@ -57,5 +57,4 @@ Release
 *.user
 .vs
 .vscode
-*.sln
 *.filters
