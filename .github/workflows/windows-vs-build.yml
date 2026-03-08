@@ -1,8 +1,8 @@
-name: Build Pe Library with Visual Studio
+name: Build Windows PE Loader
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, dev ]
   pull_request:
     branches: [ master ]
 
@@ -12,11 +12,16 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Setup MSBuild path
-        uses: microsoft/setup-msbuild@v1.1
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
 
       - name: Build solution
-        run: msbuild PeLibrary/PeLibrary.vcxproj /p:Configuration=Release
+        run: msbuild WindowsPeLoader.sln /p:Configuration=Release /p:Platform=Win32
 
+      - name: Upload Loader artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Loader
+          path: Release/Loader.exe

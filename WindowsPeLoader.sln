@@ -1,0 +1,28 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.0.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PeLibrary", "PeLibrary\PeLibrary.vcxproj", "{2A1A2C9D-82B7-428C-AF11-432808DFEFF4}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Loader", "Loader\Loader.vcxproj", "{B5A7F4E1-9C3D-4F2A-8E6B-1D5A3C7E9F0B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2A1A2C9D-82B7-428C-AF11-432808DFEFF4}.Debug|Win32.ActiveCfg = Debug|Win32
+		{2A1A2C9D-82B7-428C-AF11-432808DFEFF4}.Debug|Win32.Build.0 = Debug|Win32
+		{2A1A2C9D-82B7-428C-AF11-432808DFEFF4}.Release|Win32.ActiveCfg = Release|Win32
+		{2A1A2C9D-82B7-428C-AF11-432808DFEFF4}.Release|Win32.Build.0 = Release|Win32
+		{B5A7F4E1-9C3D-4F2A-8E6B-1D5A3C7E9F0B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B5A7F4E1-9C3D-4F2A-8E6B-1D5A3C7E9F0B}.Debug|Win32.Build.0 = Debug|Win32
+		{B5A7F4E1-9C3D-4F2A-8E6B-1D5A3C7E9F0B}.Release|Win32.ActiveCfg = Release|Win32
+		{B5A7F4E1-9C3D-4F2A-8E6B-1D5A3C7E9F0B}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
