@@ -93,7 +93,7 @@ bool Dll__get_function_by_name(
 
 	if (*function == NULL)
 	{
-		DEBUG_LOG(L"Failed to get address of function %s", func_name);
+		DEBUG_LOG(L"Failed to get address of function %hs", func_name);
 		return false;
 	}
 	return true;
@@ -119,7 +119,7 @@ bool Dll__get_function_by_ordinal(
 
 	if (*function == NULL)
 	{
-		DEBUG_LOG(L"Failed to get address with ordinal %u", ordinal);
+		DEBUG_LOG(L"Failed to get address with ordinal %zu", ordinal);
 		return false;
 	}
 	return true;
