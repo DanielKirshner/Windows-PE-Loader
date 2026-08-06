@@ -72,16 +72,26 @@ static bool Library__allocate_memory(LibraryModule* const module)
 
 static bool Library__copy_section(
 	const uint8_t* const pe_buffer,
+	const uint32_t pe_buffer_size,
 	LibraryModule* const module,
 	const uint32_t current_raw_offset)
 {
 	const IMAGE_SECTION_HEADER* const section_header = (const IMAGE_SECTION_HEADER* const)(pe_buffer + current_raw_offset);
 
+	const uint32_t copy_size = min(section_header->SizeOfRawData, section_header->Misc.VirtualSize);
+
+	if (section_header->PointerToRawData > pe_buffer_size ||
+		copy_size > pe_buffer_size - section_header->PointerToRawData)
+	{
+		DEBUG_LOG(L"Section raw data exceeds PE buffer bounds");
+		return false;
+	}
+
 	if (!Memory__copy(
 		&module->memory,
 		section_header->VirtualAddress,
 		pe_buffer + section_header->PointerToRawData,
-		min(section_header->SizeOfRawData, section_header->Misc.VirtualSize)))
+		copy_size))
 	{
 		DEBUG_LOG(L"Failed to copy section data");
 		return false;
@@ -125,7 +135,7 @@ static bool Library__copy_to_memory(
 			return false;
 		}
 		
-		if (!Library__copy_section(pe_buffer, module, current_raw_offset))
+		if (!Library__copy_section(pe_buffer, pe_buffer_size, module, current_raw_offset))
 		{
 			DEBUG_LOG(L"Failed to copy section");
 			return false;
