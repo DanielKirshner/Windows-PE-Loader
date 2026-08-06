@@ -111,7 +111,7 @@ bool Memory__copy(
 		return false;
 	}
 
-	if (buffer_size > memory->size - rva_address)
+	if (rva_address > memory->size || buffer_size > memory->size - rva_address)
 	{
 		DEBUG_LOG(L"The buffer given is too big.");
 		return false;
