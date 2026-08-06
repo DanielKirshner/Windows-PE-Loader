@@ -36,7 +36,7 @@ static bool Imports__replace_function_address(
 			return false;
 		}
 	}
-	thunk_data->u1.Function = (DWORD)func_address;
+	thunk_data->u1.Function = (DWORD_PTR)func_address;
 	return true;
 }
 
