@@ -24,7 +24,8 @@ static bool Library__validate_pe(
 		return false;
 	}
 	
-	if (dos_header->e_lfanew + sizeof(IMAGE_NT_HEADERS) > pe_buffer_size)
+	if (dos_header->e_lfanew < 0 ||
+		(size_t)dos_header->e_lfanew + sizeof(IMAGE_NT_HEADERS) > pe_buffer_size)
 	{
 		DEBUG_LOG(L"PE buffer is too small for NT headers");
 		return false;
