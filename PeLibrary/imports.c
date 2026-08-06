@@ -65,7 +65,11 @@ static bool Imports__set_library(
 	}
 
 	uint8_t* current_thunk_pointer = NULL;
-	RVA_TO_ABSOLUTE(memory, import_descriptor->FirstThunk, current_thunk_pointer);
+	if (!Memory__rva_to_absolute(memory, import_descriptor->FirstThunk, &current_thunk_pointer))
+	{
+		DEBUG_LOG(L"Failed to get address from rva");
+		goto cleanup;
+	}
 
 	for (;; current_thunk_pointer += sizeof(IMAGE_THUNK_DATA))
 	{
