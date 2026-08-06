@@ -6,9 +6,9 @@ bool Dll__load(
 	__in const char* const path,
 	__out Dll* const dll)
 {
-	if (path == NULL)
+	if (path == NULL || dll == NULL)
 	{
-		DEBUG_LOG(L"Bad path parameter");
+		DEBUG_LOG(L"Bad path or dll parameter");
 		return false;
 	}
 
