@@ -149,7 +149,11 @@ static bool Library__copy_to_memory(
 static bool Library__set_memory_protections(LibraryModule* const module)
 {
 	static const uint32_t MEMORY_BEGIN_ADDRESS = 0;
-	Memory__set_protection(&module->memory, MEMORY_BEGIN_ADDRESS, module->memory.size, PAGE_READONLY);
+	if (!Memory__set_protection(&module->memory, MEMORY_BEGIN_ADDRESS, module->memory.size, PAGE_READONLY))
+	{
+		DEBUG_LOG(L"Failed to set initial readonly protection");
+		return false;
+	}
 
 	uint8_t* current_section_ptr = NULL;
 	RVA_TO_ABSOLUTE(
