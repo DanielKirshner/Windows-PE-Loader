@@ -28,7 +28,7 @@ bool Memory__allocate(
 		requested_base_address,
 		size,
 		MEM_COMMIT | MEM_RESERVE,
-		PAGE_EXECUTE_READWRITE);
+		PAGE_READWRITE);
 
 	if (allocated_ptr == NULL)
 	{
