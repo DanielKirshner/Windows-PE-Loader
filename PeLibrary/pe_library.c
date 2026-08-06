@@ -265,7 +265,7 @@ HMODULE __stdcall Library__load_library(const uint8_t* const pe_buffer, const ui
 	if (!Library__handle_import_table(&module, LOAD_LIBRARIES))
 	{
 		DEBUG_LOG(L"Fix import table failed");
-		goto cleanup_memory;
+		goto cleanup_all;
 	}
 
 	if (!Library__set_memory_protections(&module))
