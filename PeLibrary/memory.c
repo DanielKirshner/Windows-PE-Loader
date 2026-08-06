@@ -148,7 +148,7 @@ bool Memory__rva_to_absolute(
 
 	if (rva_address >= memory->size)
 	{
-		DEBUG_LOG("The RVA (relative virtual address) is out of range.");
+		DEBUG_LOG(L"The RVA (relative virtual address) is out of range.");
 		return false;
 	}
 
