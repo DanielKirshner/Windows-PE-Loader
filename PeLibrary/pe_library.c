@@ -283,16 +283,36 @@ cleanup:
 
 BOOL __stdcall Library__FreeLibrary(const HMODULE instance)
 {
+	if (instance == NULL)
+	{
+		DEBUG_LOG(L"Invalid NULL instance passed to FreeLibrary");
+		return false;
+	}
+
 	LibraryModule module = { 0 };
 	module.memory.start_pointer = (void*)instance;
+
+	const IMAGE_DOS_HEADER* dos_header = (const IMAGE_DOS_HEADER*)instance;
+	if (dos_header->e_magic != IMAGE_DOS_SIGNATURE)
+	{
+		DEBUG_LOG(L"Instance does not point to a valid PE (bad DOS signature)");
+		return false;
+	}
+
+	const IMAGE_NT_HEADERS* nt_headers = (const IMAGE_NT_HEADERS*)((uint8_t*)instance + dos_header->e_lfanew);
+	if (nt_headers->Signature != IMAGE_NT_SIGNATURE)
+	{
+		DEBUG_LOG(L"Instance does not point to a valid PE (bad NT signature)");
+		return false;
+	}
+
+	module.memory.size = nt_headers->OptionalHeader.SizeOfImage;
 
 	if (!Library__update_headers_after_copy(&module))
 	{
 		DEBUG_LOG(L"Failed to update headers after copy");
 		return false;
 	}
-
-	module.memory.size = module.nt_headers->OptionalHeader.SizeOfImage;
 
 	BOOL return_value = true;
 
