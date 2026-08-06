@@ -114,6 +114,12 @@ static bool Library__copy_to_memory(
 {
 	static const size_t MEMORY_BEGIN_ADDRESS = 0;
 
+	if (module->nt_headers->OptionalHeader.SizeOfHeaders > pe_buffer_size)
+	{
+		DEBUG_LOG(L"SizeOfHeaders exceeds PE buffer size");
+		return false;
+	}
+
 	if (!Memory__copy(
 		&module->memory,
 		MEMORY_BEGIN_ADDRESS,
