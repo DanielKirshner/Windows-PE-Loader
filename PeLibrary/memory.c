@@ -86,8 +86,14 @@ bool Memory__set_protection(
 		return false;
 	}
 
-	DWORD __out old_protection = 0;
-	
+	if (rva_address > memory->size || size > memory->size - rva_address)
+	{
+		DEBUG_LOG(L"Protection range exceeds allocated memory bounds.");
+		return false;
+	}
+
+	DWORD old_protection = 0;
+
 	if (!VirtualProtect(memory->start_pointer + rva_address, size, protection, &old_protection))
 	{
 		DEBUG_LOG(L"VirtualProtect() failed to set protection with Windows error %u", GetLastError());
