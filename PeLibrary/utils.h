@@ -8,10 +8,12 @@
 #define HAS_FLAG(num, flag) (((num) & (flag)) == (flag))
 
 #define RVA_TO_ABSOLUTE(memory, rva, output) \
-	if (!Memory__rva_to_absolute(memory, (rva), &(output))) { \
-		DEBUG_LOG(L"Failed to get address from rva"); \
+	do { \
+		if (!Memory__rva_to_absolute(memory, (rva), &(output))) { \
+			DEBUG_LOG(L"Failed to get address from rva"); \
 			return false; \
-	} \
+		} \
+	} while (0)
 
 /**
 @brief
