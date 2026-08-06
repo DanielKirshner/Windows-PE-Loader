@@ -18,7 +18,7 @@ typedef struct _LibraryModule
 
 HMODULE __stdcall Library__load_library(
 	__in const uint8_t* const pe_buffer,
-	__in const size_t pe_buffer_size);
+	__in const uint32_t pe_buffer_size);
 
 BOOL __stdcall Library__FreeLibrary(
 	const HMODULE instance);
