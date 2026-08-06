@@ -65,7 +65,7 @@ int wmain(int argc, wchar_t* argv[])
 
 	wprintf(L"Loading DLL: %s (%lu bytes)\n", argv[1], pe_size);
 
-	HMODULE module = Library__load_library(pe_buffer, pe_size);
+	HMODULE module = Library__LoadLibrary(pe_buffer, pe_size);
 	free(pe_buffer);
 
 	if (module == NULL)

@@ -239,7 +239,7 @@ static bool Library__handle_import_table(LibraryModule* const module, const bool
 }
 
 
-HMODULE __stdcall Library__load_library(const uint8_t* const pe_buffer, const uint32_t pe_buffer_size)
+HMODULE __stdcall Library__LoadLibrary(const uint8_t* const pe_buffer, const uint32_t pe_buffer_size)
 {
 	LibraryModule module = { 0 };
 

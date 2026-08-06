@@ -16,7 +16,7 @@ typedef struct _LibraryModule
 	Imports imports;
 } LibraryModule;
 
-HMODULE __stdcall Library__load_library(
+HMODULE __stdcall Library__LoadLibrary(
 	__in const uint8_t* const pe_buffer,
 	__in const uint32_t pe_buffer_size);
 
